@@ -1,0 +1,19 @@
+{
+  "name": "b1",
+  "version": "1.0.0",
+  "description": "Đây là bài tập phòng chống tốn công SQL Injection",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngocson18/SQL-Injection.git"
+  },
+  "author": "nns",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngocson18/SQL-Injection/issues"
+  },
+  "homepage": "https://github.com/ngocson18/SQL-Injection#readme"
+}
