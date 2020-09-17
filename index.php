@@ -41,7 +41,7 @@
 
                 // anything'or 1 = 1           // Tautology-base SQL Injection voi mk
                 // anything' OR 1 = 1 LIMIT 1 -- ' ] // tautology-base voi tk (phai co data)
-                // 1111'or '1' = '1';drop table user2-- ']  // Piggy vs mk
+                // anything'or '1' = '1';drop table user2-- ']  // Piggy vs mk
                 // jjj'; SHUTDOWN; --   // Stored Procedure
                 
                 // Danh cho Tautology
