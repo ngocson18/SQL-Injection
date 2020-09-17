@@ -17,11 +17,11 @@
       <form method="POST" action="<?php echo "index.php" ?>">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" name="<?php echo "username" ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="text" required name="<?php echo "username" ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="text" name = "<?php echo "password" ?>" class="form-control" id="exampleInputPassword1">
+            <input type="text" required name = "<?php echo "password" ?>" class="form-control" id="exampleInputPassword1">
           </div>
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -33,30 +33,40 @@
     <?php
         require 'connect.php';
         if(isset($_POST['submit'])){
-            if($_POST['username'] == null){
-                echo"Please enter your username! </br>";
-            }
-            else{
-                $u =$_POST['username'];
-            }
-            if($_POST['password'] == null){
-                echo"Please enter your password! </br>";
-            }
-            else{
-                $p =$_POST['password'];
-            }
+            $u =$_POST['username'];
+            $p =$_POST['password'];
             if($u && $p){
-                $sql="SELECT * FROM user where username='".$u."' and password='".$p."'";
-                $sql2="SELECT * FROM user where username='".$u."' and password='".$p."'";
-                // 1111'or '1' = '1           // đây là mk của th nối chuỗi ra kết quả truy cập trái phép vào DB
+                $sql="SELECT * FROM user2 where username='$u' and password='$p'";
+                // $sql2="SELECT * FROM user2 where username='$u' and password='1111'or '1' = '1'; DROP TABLE user2--']";
+
+                // anything'or 1 = 1           // Tautology-base SQL Injection voi mk
+                // anything' OR 1 = 1 LIMIT 1 -- ' ] // tautology-base voi tk (phai co data)
+                // 1111'or '1' = '1';drop table user2-- ']  // Piggy vs mk
+                // jjj'; SHUTDOWN; --   // Stored Procedure
+                
+                // Danh cho Tautology
+                // Output: Dang nhap ko ko can dung tk,mk
                 $result= mysqli_query($conn, $sql);
                 if(mysqli_num_rows($result)==0){
-                    echo"Sai tài khoản hoặc mật khẩu, Vui lòng thử lại !";
+                    echo"<center>Sai tài khoản hoặc mật khẩu</center> <br>";
                 }
                 else{
-                    // echo"Fail";
+                    // header("Location: home.php");
+                    // echo "$sql";
+                }
+                echo "$sql";
+                echo "<br>";
+
+                // Danh cho Piggy
+                // Output: bang bi xoa
+                $result= mysqli_multi_query($conn, $sql);
+                if(mysqli_num_rows($result)==0){
+                    echo"<center>Khong co data</center>";
+                }
+                else{
                     header("Location: home.html");
                 }
+                echo "$sql";
             }
         }
     ?>
